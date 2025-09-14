@@ -1,0 +1,171 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Cinematic Intro Animations */
+@keyframes grain {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(-10%, 10%); }
+}
+
+/* Design System — The 90 Minute Drip
+   All colors are HSL values. Gradients, shadows, typography, and motion tokens live here.
+*/
+
+@layer base {
+  :root {
+    /* Core Palette */
+    --background: 150 20% 98%;
+    --foreground: 152 30% 12%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 152 30% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 152 30% 12%;
+
+    --primary: 146 60% 22%; /* Deep pitch green */
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 152 35% 94%;
+    --secondary-foreground: 152 30% 15%;
+
+    --muted: 150 25% 95%;
+    --muted-foreground: 152 8% 40%;
+
+    --accent: 146 45% 30%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 84% 58%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 152 18% 88%;
+    --input: 152 18% 88%;
+    --ring: 146 60% 22%;
+
+    --radius: 0.8rem; /* Softer, premium radius */
+
+    /* Sidebar (kept for shadcn components) */
+    --sidebar-background: 150 22% 98%;
+    --sidebar-foreground: 152 30% 12%;
+    --sidebar-primary: 146 60% 22%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 150 20% 96%;
+    --sidebar-accent-foreground: 152 30% 12%;
+    --sidebar-border: 152 18% 88%;
+    --sidebar-ring: 146 60% 48%;
+
+    /* Brand & Motion Tokens */
+    --brand: 146 60% 22%;
+    --brand-glow: 146 60% 34%;
+
+    --gradient-primary: linear-gradient(135deg, hsl(var(--brand)) 0%, hsl(var(--brand-glow)) 100%);
+    --gradient-subtle: radial-gradient(80% 80% at 50% 20%, hsl(146 60% 96%) 0%, hsl(150 20% 98%) 60%, hsl(0 0% 100%) 100%);
+
+    --shadow-elevated: 0 16px 40px -12px hsl(var(--brand) / 0.28);
+    --shadow-glow: 0 0 40px hsl(var(--brand-glow) / 0.35);
+
+    --transition-smooth: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark {
+    --background: 152 25% 7%;
+    --foreground: 210 40% 98%;
+
+    --card: 152 25% 9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 152 25% 9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 146 60% 42%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 152 16% 16%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 152 16% 16%;
+    --muted-foreground: 152 10% 68%;
+
+    --accent: 146 50% 28%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 152 16% 18%;
+    --input: 152 16% 18%;
+    --ring: 146 60% 42%;
+
+    --sidebar-background: 152 22% 9%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 146 60% 42%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 152 18% 12%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 152 18% 12%;
+    --sidebar-ring: 146 60% 42%;
+
+    --gradient-primary: linear-gradient(135deg, hsl(146 60% 24%) 0%, hsl(146 60% 36%) 100%);
+    --gradient-subtle: radial-gradient(80% 80% at 50% 20%, hsl(152 16% 14%) 0%, hsl(152 22% 10%) 60%, hsl(152 25% 9%) 100%);
+
+    --shadow-elevated: 0 16px 40px -12px hsl(146 60% 36% / 0.35);
+    --shadow-glow: 0 0 48px hsl(146 60% 36% / 0.45);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 2rem;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    background-image: var(--gradient-subtle);
+    background-attachment: fixed;
+    overflow-x: hidden;
+  }
+
+  /* Enhanced smooth scrolling for webkit browsers */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    * {
+      scroll-behavior: smooth;
+    }
+  }
+}
+
+/* Utilities & component-level helpers */
+@layer utilities {
+  .bg-gradient-primary { background-image: var(--gradient-primary); }
+  .shadow-elevated { box-shadow: var(--shadow-elevated); }
+  .shadow-glow { box-shadow: var(--shadow-glow); }
+  .hover-scale { @apply transition-transform duration-200 hover:scale-105; }
+  .story-link {
+    position: relative;
+  }
+  .story-link::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    left: 0;
+    bottom: 0;
+    background: hsl(var(--primary));
+    transform-origin: bottom right;
+    transition: transform 0.3s ease;
+  }
+  .story-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+}
